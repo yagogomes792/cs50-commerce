@@ -1,0 +1,49 @@
+{% extends 'auctions/layout.html' %}
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1 class="welcometxt">Your info</h1>
+        <h5>Here you can find informations about your watchlist and auctions you have won</h5>
+    </div>
+    <div>
+        <div class="infotitle text-center">
+            <h3 class="welcometxt">WatchList</h3>
+        </div>
+        <div class="jumbotron">
+            {% if p %}
+            {% for item in product_list %}
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{% url 'view_listing' item.id %}"><h5 class="card-header">{{item.product_name}}</h5></a>
+                        <p class="card-title"><strong>Seller: </strong>{{item.owner}}</p>
+                        <p><strong>Price: </strong>${{item.first_bid}}</p>
+                        <p><strong>Created at: </strong>{{item.created}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+                <div class="text-center">
+                    <h1>There is any product in Watchlist</h1>
+                </div>
+            {% endif%}
+        </div>
+    </div>
+
+    <div class="infotitle text-center">
+        <h3 class="welcometxt">Won Listings</h3>
+    </div>
+    {% if not products %}
+        <h6 class="text-center">You didn't win any listing yet</h6>
+    {% else %}
+        {% for product in products %}
+            <div class="card" style="width: 50%; margin-left: 25%; text-align: center;">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.product.name}}</h5>
+                    <h4>YOU WON!!!</h4>
+                    <p><strong>Seller: </strong>{{product.owner}}</p>
+                    <p><strong>Winner: </strong>{{product.winner}}</p>
+                    <p><strong>Price: </strong>${{product.winnerPrice}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

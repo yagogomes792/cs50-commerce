@@ -1,0 +1,35 @@
+{% extends 'auctions/layout.html' %}
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1 class="welcometxt">Create listing</h1>
+        <h5>Create a new listing and wait for the bids.</h5>
+    </div>
+    <div class="jumbotron">
+        <form action="{% url 'new_listing' %}" method="POST" class="create-form">
+            {% csrf_token %}
+            <label for="product name"><h5>Product Name: </h5></label>
+            <input type="text" autofocus name="product_name" class="form-control" placeholder="product name">
+            <br>
+            <label for="product name"><h5>Product Description: </h5></label>
+            <textarea name="description" id="product_description" cols="30" rows="10" class="form-control"></textarea>
+            <br>
+            <label for="product name"><h5>Choose a category: </h5></label>
+            <select class="form-control" name="category" id="category" required>
+                <option value="">Category</option>
+                <option value="clothes">Clothes</option>
+                <option value="eletronics">Eletronics</option>
+                <option value="sports">Sports</option>
+                <option value="kids">Kids</option>
+            </select>
+            <br>
+            <label for="product name"><h5>Your first bid: </h5></label>
+            <input type="numeric" name="first_bid" placeholder="Bid" class="form-control">
+            <br>
+            <label for="product name"><h5>Paste your image link: </h5></label>
+            <input type="text" name="image" id=""placeholder="image link" class="form-control">
+            <br>
+            <input type="submit" value="save" class="btn btn-info" style="width: 300px;">
+        </form>
+    </div>
+    
+{% endblock%}

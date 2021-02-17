@@ -1,0 +1,18 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="jumbotron jumbotron-fluid text-center">
+        <h1 class="welcometxt">Welcome to Brechó</h1>
+        <br>
+        {% if user.is_authenticated %}
+            <h2>Listings</h2>
+            <a href="{% url 'listing' %}" class="btn btn-primary btn-lg" style="width: 300px;">Active Listings</a>
+            <a href="{% url 'new_listing' %}" class="btn btn-success btn-lg" style="width: 300px;">Create Listing</a><br>
+            <a href="{% url 'info' %}" class="btn btn-info btn-lg" style="width: 300px;">My infos</a>
+        {% else %}
+            <h5>Not registered yet? </h5>
+            <h6>Click on register and enjoy great auctions</h6>
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'auctions/layout.html '%}
+{% block body %}
+    <div>
+        {% if message %}
+            <p><strong>{{ message }}</strong></p>
+        {% endif %}
+    </div>
+    <div class="jumbotron text-center">
+        <h1 class="welcometxt">Closed listings</h1>
+        <h5>These are the listings that were closed.</h5>
+    </div>
+        <div class="text-center">
+            {% if empty %}
+            <p><strong>There are any closed listings at this moment</strong></p>
+        </div>
+            {% else %}
+            <div class="jumbotron text-center">
+                <div class="card" style="width: 50%; margin-left: 25%;">
+                    {% for product in products %}
+                        <label for="">Product: </label>
+                        <h1>{{ product.title }}</h1>
+                        {% if product.winner == request.user.username %}
+                            <p>YOU WON!!!!</p>
+                        {% endif %}
+                        <label for="">Seller: </label>
+                        <h1>{{ product.owner }}</h1>
+                        <label for="">Winner: </label>
+                        <h1>{{ product.winner }}</h1>
+                        <label for="">Winner Price: </label>
+                        <h1>${{ product.winnerPrice }}</h1>
+                        <hr><hr>
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% endif %}
+
+{% endblock %}

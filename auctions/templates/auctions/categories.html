@@ -1,0 +1,21 @@
+{% extends 'auctions/layout.html' %}
+{% block body %}
+
+    <div class="jumbotron text-center">
+        <h1 class="welcometxt">Categories</h1>
+        <h5>Choose a category to find products</h5>
+    </div>
+    <div class="jumbotron">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lx-7 categ" style="width: 300px; text-align: center;">
+                <ul class="list-group">
+                    <a href="{% url 'category' 'clothes' %}" class="list-group-item"><i>Clothes</i></a>
+                    <a href="{% url 'category' 'eletronics' %}" class="list-group-item"><i>Eletronics</i></a>
+                    <a href="{% url 'category' 'sports' %}" class="list-group-item"><i>Sports</i></a>
+                    <a href="{% url 'category' 'kids' %}" class="list-group-item"><i>Kids</i></a>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

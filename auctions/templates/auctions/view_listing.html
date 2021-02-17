@@ -1,0 +1,77 @@
+{% extends 'auctions/layout.html' %}
+{% block body %}
+    <div class="container message-container" style="text-align: center;">
+        {% if message %}
+            <p><strong>{{ message }}</strong></p>
+        {% endif %}
+    </div>
+    <br>
+    <div class="jumbotron">
+        <div class="product-container">
+            <div>
+                <h1><strong>{{ product.product_name }}</strong></h1>
+                <img src="{{ product.image }}" alt="" class="product-img">
+                <br>
+                <br>
+                <p>{{product.description}}</p>
+                <p><strong>Category: </strong>{{product.category}}</p>
+                <p><strong>Current Bid: </strong>${{product.first_bid}}</p>
+                <p><strong>Owner: </strong>{{product.owner}}</p>
+                <p><strong>Created at: </strong>{{product.created}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron">
+        {% if add %}
+                <a href="{% url 'watchlist' product.id %}" class="btn btn-danger" style="width: 300px;" name="remove">Remove from WatchList</a>
+            {% else %}
+                <a href="{% url 'watchlist' product.id %}" class="btn btn-success" style="width: 300px;" name="add">Add to WatchList</a>
+            {% endif %}
+            <hr>
+            {% if user.username != product.owner %}
+                <p><strong>Place your bid: </strong></p>
+                <form action="{% url 'view_listing' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="numeric" class="form-control" style="width: 300px;" name="new_bid" placeholder="Enter your bid">
+                    </div>
+                    <input type="submit" class="bnt btn-info" style="width: 300px;" name="submit" value="save">
+                </form>
+            {% endif %}
+    </div>
+
+    <div class="jumbotron text-left">
+        <h3><strong>Comments about the product </strong></h3>
+        {% if comments %}
+            {% for comment in comments %}
+                <br>
+                <div class="card text-left">
+                    <h4 class="card-header">{{ comment.user }}</h4>
+                    <div class="card-body">
+                        <p class="lead">{{ comment.comment }} </p>
+                        <p class="card-text">{{ comment.comment_timestamp }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center;"><strong>There are any comments yet</strong></p>
+        {% endif %}
+        
+        {% if user.username != product.owner %}
+            <div class="jumbotron">
+                <p><strong>Add comment</strong></p>
+                <form action="{% url 'addcomment' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <textarea class="form-control" name="comment" id="comment" cols="25" rows="10" placeholder="Enter a comment"></textarea><br>
+                    <input type="submit" name="submit" value="Comment">
+                </form>
+            </div>
+            {% endif %}
+
+        <div>
+            {% if user.username == product.owner %}
+                <a href="{% url 'closebid' product.id %}" class="btn btn-info">Close Bid</a>
+            {% endif %}
+        </div>
+                
+{% endblock %}
